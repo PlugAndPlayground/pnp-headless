@@ -1,0 +1,25 @@
+# Node.js specific
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# TypeScript specific
+dist/
+*.tsbuildinfo
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.log
+
+# Directories used by tools like vscode, jetbrains, etc.
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Puppeteer specific
+screenshot.png
