@@ -1,0 +1,65 @@
+{
+  "version": 0.1,
+  "graphSettings": {
+    "showExecutionVisualisation": true,
+    "showNonPresentationNodes": true,
+    "viewportCenterPosition": {
+      "x": -1046.7936075666375,
+      "y": -6798.784574801779
+    },
+    "viewportScale": 1.2295001450303777
+  },
+  "nodes": [
+    {
+      "id": "new-bat-14",
+      "name": "PixotopeGatewayGet",
+      "type": "PixotopeGatewayGet",
+      "x": -1448.6103979690445,
+      "y": -6911.658380069638,
+      "width": 160,
+      "height": 112,
+      "socketArray": [
+        {
+          "socketType": "in",
+          "name": "Address",
+          "dataType": "{\"class\":\"StringType\",\"type\":{}}",
+          "data": "http://localhost:16208/gateway/2.0.0/publish",
+          "visible": false
+        },
+        {
+          "socketType": "in",
+          "name": "Target",
+          "dataType": "{\"class\":\"StringType\",\"type\":{}}",
+          "data": "Store",
+          "visible": true
+        },
+        {
+          "socketType": "in",
+          "name": "Name",
+          "dataType": "{\"class\":\"StringType\",\"type\":{}}",
+          "data": "State",
+          "visible": true
+        },
+        {
+          "socketType": "in",
+          "name": "Meta",
+          "dataType": "{\"class\":\"JSONType\",\"type\":{}}",
+          "data": {},
+          "visible": false
+        },
+        {
+          "socketType": "out",
+          "name": "Content",
+          "dataType": "{\"class\":\"JSONType\",\"type\":{}}",
+          "visible": true
+        }
+      ],
+      "updateBehaviour": {
+        "update": true,
+        "interval": false,
+        "intervalFrequency": 1000
+      }
+    }
+  ],
+  "links": []
+}
