@@ -14,7 +14,7 @@ jobs:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: Install Dependencies
-          command: npm install
+          command: yarn
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
@@ -28,13 +28,13 @@ jobs:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: TypeScript Compilation
-          command: npx tsc
+          command: yarn tsc
       - run:
           name: Package for macOS
-          command: npx pkg -t node18-macos-x64 ./dist/main.js -o pnp-headless-macos
+          command: pkg -t node18-macos-x64 ./dist/main.js -o pnp-headless-macos
       - run:
           name: Package for Windows
-          command: npx pkg -t node18-win-x64 ./dist/main.js -o pnp-headless-win.exe
+          command: pkg -t node18-win-x64 ./dist/main.js -o pnp-headless-win.exe
       - persist_to_workspace:
           root: ./
           paths:
