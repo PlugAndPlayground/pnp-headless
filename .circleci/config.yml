@@ -1,26 +1,66 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/configuration-reference
 version: 2.1
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/configuration-reference/#jobs
-jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/configuration-reference/#executor-job
+executors:
+  node-executor:
     docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/configuration-reference/#steps
+      - image: circleci/node:18
+
+jobs:
+  install:
+    executor: node-executor
     steps:
       - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+          name: Install Dependencies
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
 
-# Orchestrate jobs using workflows
-# See: https://circleci.com/docs/configuration-reference/#workflows
+  build:
+    executor: node-executor
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: TypeScript Compilation
+          command: npx tsc
+      - run:
+          name: Package for macOS
+          command: npx pkg -t node18-macos-x64 ./dist/main.js -o pnp-headless-macos
+      - run:
+          name: Package for Windows
+          command: npx pkg -t node18-win-x64 ./dist/main.js -o pnp-headless-win.exe
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - pnp-headless-macos
+            - pnp-headless-win.exe
+
+  save-artifacts:
+    executor: node-executor
+    steps:
+      - attach_workspace:
+          at: /workspace
+      - store_artifacts:
+          path: /workspace/pnp-headless-macos
+          destination: pnp-headless-macos
+      - store_artifacts:
+          path: /workspace/pnp-headless-win.exe
+          destination: pnp-headless-win.exe
+
 workflows:
-  say-hello-workflow:
+  version: 2
+  build_and_save:
     jobs:
-      - say-hello
+      - install
+      - build:
+          requires:
+            - install
+      - save-artifacts:
+          requires:
+            - build
