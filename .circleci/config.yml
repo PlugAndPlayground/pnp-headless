@@ -31,10 +31,10 @@ jobs:
           command: yarn tsc
       - run:
           name: Package for macOS
-          command: pkg -t node18-macos-x64 ./dist/main.js -o pnp-headless-macos
+          command: yarn pkg -t node18-macos-x64 ./dist/main.js -o pnp-headless-macos
       - run:
           name: Package for Windows
-          command: pkg -t node18-win-x64 ./dist/main.js -o pnp-headless-win.exe
+          command: yarn pkg -t node18-win-x64 ./dist/main.js -o pnp-headless-win.exe
       - persist_to_workspace:
           root: ./
           paths:
