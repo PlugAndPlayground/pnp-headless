@@ -45,12 +45,12 @@ jobs:
     executor: node-executor
     steps:
       - attach_workspace:
-          at: /workspace
+          at: ./ 
       - store_artifacts:
-          path: /workspace/pnp-headless-macos
+          path: pnp-headless-macos
           destination: pnp-headless-macos
       - store_artifacts:
-          path: /workspace/pnp-headless-win.exe
+          path: pnp-headless-win.exe
           destination: pnp-headless-win.exe
 
 workflows:
