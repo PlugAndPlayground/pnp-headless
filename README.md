@@ -1,3 +1,5 @@
+# TO USE THIS YOU WILL NEED THE SOURCE CODE OF PPNP
+
 # pnp-headless
 This is a tool for running PNP graphs in "headless" mode without any UI, useful for graph that are built to have side-effects in other applications, where PNP is not the end consumer, but a transformer of data to be sent or used somewhere else.
 
